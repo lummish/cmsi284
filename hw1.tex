@@ -1,0 +1,1194 @@
+\documentclass[11pt]{article}
+\usepackage{geometry} % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fontspec}
+\usepackage{newunicodechar}
+\newunicodechar{Ⓗ}{\hcircle}
+
+\usepackage{url}
+\usepackage[utf8]{inputenc} 
+% \usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{CMSI 284 Encoding Exercise\\
+or, the Joy of Hex}
+\author{Submitted by: Harris Lummis}
+\date{}
+
+% found command at http://tex.stackexchange.com/questions/131125/better-way-to-display-long-division
+\newcommand\Mydiv[2]{%
+$\strut#1$\kern.25em\smash{\raise.3ex\hbox{$\big)$}}$\mkern-8mu
+        \overline{\enspace\strut#2}$}
+        
+\begin{document}
+\maketitle
+
+
+\section*{Instructions}
+
+Do all of these problems \emph{without} the aid of a computer. The purpose of these exercises
+is for you to develop ``manual'' encoding skills, which you will need in the event that a
+zombie apocalypse wipes out all known systems technology on the planet.
+
+You may submit this assignment in one of these ways. With \emph{both} options, make sure to
+show your work where work needed to be done. This provides evidence that you did not use a
+computer to determine the answers.
+
+\begin{itemize}
+\item If you know \LaTeX\ sufficiently, copy the \emph{source file} of this exercise and add your
+solutions to this copy. Commit and push the file to your GitHub repository. \emph{Advantage:}
+Drop-dead clear, sharp, unambiguous presentation. \emph{Disadvantage:} Intermediate computations
+may be harder to write down.
+
+\item Alternatively, you may \emph{print} the PDF version of this exercise and do your work on
+paper. Submit this printout with your \emph{name} in the designated blank up top. \emph{Advantage:}
+More convenient for showing your work. \emph{Disadvantage:} Handwritten answers may be harder to
+read.
+\end{itemize}
+
+
+\section*{Mapping to Outcomes and Proficiencies}
+
+The overall assignment covers outcomes \(1a\), \(1b\), \(4d\), and \(4f\). Each question will
+pertain specifically to either \(1a\) or \(1b\) and will be given a score ranging from 0 to 4
+based on the correctness of the answer. The average score for a given outcome, rounded,
+determines the final proficiency for the assignment. e.g., If your numeric encoding answers
+attain an average of 3.2, then \(1a\) will get a proficiency of \texttt{|}.
+
+Outcome \(4d\) will be determined by how well you use the information given in class to compute
+the requested answers, and how accurately you follow the instructions in this assignment.
+
+Outcome \(4f\) will be determined by whether you submit the assignment on time.
+
+\pagebreak
+
+\section{Integers}
+
+\emph{Outcome 1a:} Assuming a 16-bit storage word, choose a value in the requested encoding and
+specification, then provide its corresponding values for the other encodings:
+\linebreak \linebreak For the following problems, these powers of 2 may come in handy:
+\begin{tabular}{ l | r }
+	x & $2^{x}$ \\
+	\hline
+	10 & 1024 \\
+	11 & 2048 \\
+	12 & 4096 \\
+	13 & 8192 \\
+	14 & 16384 \\
+	15 & 32768 \\
+	16 & 65536
+\end{tabular}
+\begin{enumerate}
+
+\item Signed decimal \(< -31000\), not divisible by 2, 4, or 8:
+
+-31567
+
+\begin{enumerate}
+\item \text{Unsigned decimal}: \linebreak\linebreak
+\text{1000 0100 1011 0001}\linebreak\linebreak
+\begin{align*}
+1 \times  2 \times 2 \times 2 &= 8 \\
+(8 \times 2 \times 2 + 1) \times 2 \times 2 &= 132\\
+132 \times 2 + 1 &= 265\\
+265 \times 2 &= 530\\
+530 \times 2 + 1 &= 1061\\
+1061 \times 2 + 1 &= 2123\\
+2123 \times 2 &= 4246\\
+4246 \times 2 &= 8492\\
+8492 \times 2 &=  16984 \\
+16984 \times 2 + 1 &= \boxed{33969}
+\end{align*}
+\item Hexadecimal: \linebreak\linebreak
+Use a hex digit to represent each four digit block of signed binary integer \linebreak\linebreak
+\begin{tabular}{c c c c}
+1000 & 0100 & 1011 & 0001 \\
+8 & 4 & B & 1
+\end{tabular} \linebreak\linebreak
+\boxed{84B1} \pagebreak
+\item Binary: 
+\linebreak
+\linebreak
+\begin{tabular}{ l  l}
+	\begin{tabular}{ r | l }
+		\Mydiv{2}{31567} & 1\\
+		\Mydiv{2}{15783} & 1\\
+		\Mydiv{2}{7891} & 1\\
+		\Mydiv{2}{3945} & 1\\
+		\Mydiv{2}{1972} & 0\\
+		\Mydiv{2}{986} & 0\\
+		\Mydiv{2}{493} & 1\\
+		\Mydiv{2}{246} & 0\\
+		\Mydiv{2}{123} & 1\\
+		\Mydiv{2}{61} & 1\\
+		\Mydiv{2}{30} & 0\\
+		\Mydiv{2}{15} & 1\\
+		\Mydiv{2}{7} & 1\\
+		\Mydiv{2}{3} & 1\\
+		\Mydiv{2}{1} & 1 \\
+	\end{tabular} &
+	\begin{tabular}{l}
+		0111 1011 0100 1111 \\ 
+		Flip all bits after rightmost 1 \\
+		\boxed{\text{1000 0100 1011 0001}}
+	\end{tabular}
+	
+\end{tabular}
+\end{enumerate}
+
+\item Hexadecimal between \texttt{A234} and \texttt{DFFF} inclusive, no zeroes:\linebreak
+
+CAFE
+
+\begin{enumerate}
+\item Unsigned decimal:
+\begin{align*}
+	1\times 2 + 1 &= 3\\
+	3\times 2\times 2 &= 12\\
+	12\times2+1\times2&=50\\
+	50\times2+1\times2&=202\\
+	202\times2+1 &= 405\\
+	405\times2+1 &= 811\\
+	811\times2+1&=1623\\
+	1623\times2+1&=3247\\
+	3247\times2+1&=6495\\
+	6495\times2+1&=12991\\
+	12991\times2+1&= 25983\\
+	25983\times2&=\boxed{51966}
+\end{align*}
+\item \text{Signed decimal:}\linebreak
+\text{1100 1010 1111 1110}\linebreak
+\text{First bit is 1, so number is negative. Flip all bits after first 1.}\linebreak
+\text{0011 0101 0000 0010}
+\begin{align*}
+	1\times2+1 &= 3\\
+	3\times2&=6\\
+	6\times2+1&=13\\
+	13\times2&=26\\
+	26\times2+1&=53\\
+	53\times2&=106\\
+	106\times2&=212\\
+	212\times2&=424\\
+	424\times2&=848\\
+	848\times2&=1696\\
+	1696\times2&=3392\\
+	3392\times2+1&=6785\\
+	6785\times2&=13570\\
+	-1\times13570&=\boxed{-13570}
+\end{align*}
+\item Binary: \linebreak
+\begin{tabular}{c c c c}
+C & A & F & E \\
+1100 & 1010 & 1111 & 1110
+\end{tabular}\linebreak
+\boxed{\text{1100 1010 1111 1110}}
+\end{enumerate}
+
+\item Hexadecimal between \texttt{0111} and \texttt{01FF} inclusive, two zeroes max:
+
+01E0
+
+\begin{enumerate}
+\item Unsigned decimal:
+
+	The number is positive in a signed representation, so its unsigned representation will be equivalent. \boxed{480}\pagebreak
+	
+\item \text{Signed decimal:}
+
+	Using binary representation, first digit is a 0 so number is positive.
+	\begin{align*}
+		1\times 2^8 &= 256\\
+		256+2^7 &= 384\\
+		384+2^6 &= 448\\
+		448+2^5 &= \boxed{480}		
+	\end{align*}
+\item Binary:\linebreak
+	Encode each Hex digit using 4 bits:
+		\begin{tabular}{c c c c}
+			0 & 1 & E & 0\\
+			0000 & 0001 & 1110 & 0000
+		\end{tabular}
+		
+	\boxed{\text{0000 0001 1110 0000}}
+
+\end{enumerate}
+
+\item Binary with high-order bits \texttt{1011} and at least 5 \texttt{1}s:
+
+1011 0111
+
+\begin{enumerate}
+\item Unsigned decimal:
+
+1011 0111
+
+\begin{align*}
+1 \times 2^7 &= 128\\
+128 + 2^5&=160\\
+160+2^4&=176\\
+176+2^2&=180\\
+180 + 2^1 &= 182\\
+182+2^0 &= \boxed{183}
+\end{align*}
+\item Signed decimal:
+
+First bit is a 1, so number is negative. Flip all bits to the left of the rightmost 1:
+
+\begin{tabular}{c c}
+1011 & 0111\\
+0100 & 1001
+\end{tabular}
+
+\begin{align*}
+1\times 2^6 &=64\\
+64+2^3&=72\\
+72+2^0&= \boxed{73}
+\end{align*}
+\item Hexadecimal:
+
+One hex digit represents each 4 binary digits:
+\begin{tabular}{c c}
+1011 & 0111\\
+B & 7
+\end{tabular}
+
+\boxed{B7}
+\end{enumerate}
+
+\item Hexadecimal between \texttt{8000} and \texttt{A000} \emph{exclusive}, one zero max:
+
+890B
+
+\begin{enumerate}
+\item Unsigned decimal:
+\begin{align*}
+8\times16^3&=8\times4096\\
+8\times4096&=32768\\
+32768 + 9\times256&=32768+2304\\
+32768+2304&=35072\\
+35072+11&=\boxed{35083}
+\end{align*}
+\item Signed decimal:
+
+First digit is a 1, so number is negative. Flip all bits left of rightmost 1.
+
+\begin{tabular}{c c c c}
+1000&1001&0000&1011\\
+0111&0110&1111&0101
+\end{tabular}
+
+\begin{align*}
+	(1\times2+1)\times2+1&=7\\
+	7\times2\times2+1&=29\\
+	(29\times2+1)\times2&=118\\
+	(118\times2+1)\times2+1&=475\\
+	475\times2+1 &= 951\\
+	951\times2+1 &= 1903\\
+	1903\times2 &= 3806\\
+	3806\times2+1 &= 7613\\
+	7613\times2 &= 15226\\
+	15226\times2+1 &= 30453\\
+	\boxed{-30453}
+\end{align*}
+\item Binary: 
+
+Use 4 bits to represent each hex digit
+
+
+\begin{tabular}{c c c c}
+8&9&0&B\\
+1000&1001&0000&1011
+\end{tabular}
+
+\boxed{\text{1000 1001 0000 1011}}
+\end{enumerate}
+
+\item Unsigned decimal between 48000 and 65000 inclusive, not divisible by 4 or 8:
+
+48391
+
+\begin{enumerate}
+\item Signed decimal:
+
+\text{1011 1101 0000 0111}
+
+First bit is a 1, number is negative. Flip all bits left of rightmost 1.
+
+\text{1011 1101 0000 0111}
+
+
+\text{0100 0010 1111 1001}
+
+\begin{align*}
+	1\times2^{14}&=16384\\
+	16384 + 2^9&=16896\\
+	16896 + 2^7&=17024\\
+	17024 + 2^6&=17088\\
+	17088 + 2^5&=17120\\
+	17120 + 2^4&=17136\\
+	17136 + 2^3&=17144\\
+	17144 + 2^0&=17145\\
+	&\boxed{-17145}
+\end{align*}
+\item Hexadecimal:
+
+Use a hex digit to represent each nybble:
+
+\begin{tabular}{c c c c}
+1011&1101&0000&0111\\
+B&D&0&7
+\end{tabular}
+
+\boxed{BD07}
+
+\item Binary:
+
+\begin{tabular}{r l}
+\Mydiv{2}{48391}&1\\
+\Mydiv{2}{24195}&1\\
+\Mydiv{2}{12097}&1\\
+\Mydiv{2}{6048}&0\\
+\Mydiv{2}{3024}&0\\
+\Mydiv{2}{1512}&0\\
+\Mydiv{2}{756}&0\\
+\Mydiv{2}{378}&0\\
+\Mydiv{2}{189}&1\\
+\Mydiv{2}{94}&0\\
+\Mydiv{2}{47}&1\\
+\Mydiv{2}{23}&1\\
+\Mydiv{2}{11}&1\\
+\Mydiv{2}{5}&1\\
+\Mydiv{2}{2}&0\\
+\Mydiv{2}{1}&1\\
+\end{tabular}\linebreak
+
+\boxed{\text{1011 1101 0000 0111}}
+\end{enumerate}
+
+\item Unsigned decimal between 80 and 1024 \emph{exclusive}, not divisible by 4 or 8:
+
+93
+
+\begin{enumerate}
+\item Signed decimal:
+
+First bit is a zero, so number is positive, thus unsigned and signed representations are identical in decimal value. \boxed{93}
+\item Hexadecimal:
+
+Use a hex digit to represent each nybble:
+
+\begin{tabular}{c c c c}
+0000&0000&0101&1101\\
+0&0&5&D
+\end{tabular}
+
+\boxed{005D}
+\pagebreak
+\item Binary:
+
+\begin{tabular}{r l}
+\Mydiv{2}{93}&1\\
+\Mydiv{2}{46}&0\\
+\Mydiv{2}{23}&1\\
+\Mydiv{2}{11}&1\\
+\Mydiv{2}{5}&1\\
+\Mydiv{2}{2}&0\\
+\Mydiv{2}{1}&1
+\end{tabular}
+
+\boxed{\text{0000 0000 0101 1101}}
+\end{enumerate}
+
+\item Signed decimal between \(-69\) and \(-192\) inclusive, not divisible by 2, 4, or 8:
+
+-143
+
+\begin{enumerate}
+\item Unsigned decimal:
+
+\begin{align*}
+15 \times 16^3 &= 61440\\
+61440 + 15 \times 16^2 &=  65280\\
+65280 + 7\times16 &= 65392\\
+65392 + 1 &= \boxed{65393}
+\end{align*}
+\item Hexadecimal:
+
+Use a hex digit to represent each nybble:
+
+\begin{tabular}{c c c c}
+1111 & 1111 & 0111 & 0001\\
+F & F & 7 & 1\\
+\end{tabular}
+
+\boxed{\text{FF 71}}
+\item Binary:
+
+\begin{tabular}{r l}
+\Mydiv{2}{143}&1\\
+\Mydiv{2}{71}&1\\
+\Mydiv{2}{35}&1\\
+\Mydiv{2}{17}&1\\
+\Mydiv{2}{8}&0\\
+\Mydiv{2}{4}&0\\
+\Mydiv{2}{2}&0\\
+\Mydiv{2}{1}&1\\
+\end{tabular}\\
+
+Take two's complement:
+
+\begin{tabular}{c c c c}
+0000 & 0000 & 1000 & 1111\\
+1111 & 1111 & 0111 & 0001
+\end{tabular}
+
+\boxed{\text{1111 1111 0111 0001}}
+\end{enumerate}
+
+\item Binary with high-order bits \texttt{0001} and at least 7 \texttt{1}s:
+
+0001 1101 1100 1100
+
+\begin{enumerate}
+\item Unsigned decimal:
+Signed is positive, unsigned will be same value: \boxed{7628}
+
+\item Signed decimal:
+
+First bit is a 0, will be same as unsigned rep:\\
+
+\begin{align*}
+16^3 &= 4096\\
+4096 + 13\times16^2 &= 7424\\
+7427 + 12\times16 &= 7616\\
+7616 + 12 &= \boxed{7628}
+\end{align*}
+
+\item Hexadecimal:
+
+\begin{tabular}{c c c c}
+0001 & 1101 & 1100 & 1100\\
+1 & D & C & C
+\end{tabular}
+
+\boxed{\text{1D CC}}
+
+\end{enumerate}
+
+\item Hexadecimal between \texttt{284C} and \texttt{789A} \emph{exclusive}, one zero max:
+
+365B
+
+\begin{enumerate}
+\item Unsigned decimal:\\
+
+First bit is a 0, will be same as signed decimal: \boxed{13915}\\
+
+\item Signed decimal:
+
+\begin{align*}
+3\times16^3&=12288\\
+12288+6\times16^2&=13824\\
+13824 + 5\times16&=13904\\
+13904 + 11&= \boxed{13915}
+\end{align*}
+
+\item Binary:
+
+\begin{tabular}{c c c c}
+3&6&5&B\\
+0011&0110&0101&1011
+\end{tabular}
+
+\boxed{\text{0011 0110 0101 1011}}
+\end{enumerate}
+
+\end{enumerate}
+
+\section{Negation}
+
+\emph{Outcome 1a:} Choose 16-bit signed words according to the given specifications, then compute
+their negatives, expressing your answers in hex as well. You may have a maximum of eight hex
+\texttt{0} digits among your chosen values:
+
+\begin{enumerate}
+\item \(x\) in \([\) \texttt{9876}\ldots\texttt{CDEF} \(]  =\) ABCD;
+      \(-x = \) 5433
+
+\begin{tabular}{c c c c}
+A&B&C&D\\
+1010&1011&1100&1101
+\end{tabular}      
+
+Flip bits left of rightmost 1:
+
+\begin{tabular}{c c c c}
+1010&1011&1100&1101\\
+0101&0100&0011&0011
+\end{tabular}    
+
+Use a hex digit to represent each nybble:
+
+\begin{tabular}{c c c c}
+0101&0100&0011&0011\\
+5&4&3&3
+\end{tabular}    
+
+
+\item \(y\) in \([\) \texttt{D219}\ldots\texttt{EDEE} \(]  =\) E3F0;
+      \(-y = \) 1C10
+
+\begin{tabular}{c c c c}
+E&3&F&0\\
+1110&0011&1111&0000
+\end{tabular}
+
+Flip all bits left of rightmost 1:
+
+\begin{tabular}{c c c c}
+1110&0011&1111&0000\\
+0001&1100&0001&0000
+\end{tabular}
+
+Use a hex digit to represent each nybble:
+
+\begin{tabular}{c c c c}
+0001&1100&0001&0000\\
+1&C&1&0
+\end{tabular}
+
+\item \(z\) is odd, in \([\) \texttt{8087}\ldots\texttt{9191} \(]  =\) 8F03;
+      \(-z = \) 70FD
+      
+\begin{tabular}{c c c c}
+8&F&0&3\\
+1000&1111&0000&0011
+\end{tabular}\\[2pt]
+
+\begin{tabular}{c c c c}
+1000&1111&0000&0011\\
+0111&0000&1111&1101
+\end{tabular}\\[2pt]
+
+\begin{tabular}{c c c c}
+0111&0000&1111&1101\\
+7&0&F&D
+\end{tabular}\\[2pt]
+
+
+\item \(w\) is even, in \([\) \texttt{3BB0}\ldots\texttt{5FFE} \(]  =\) 4BDC;
+      \(-w = \) B424
+
+\begin{tabular}{c c c c}
+4&B&D&C\\
+0100&1011&1101&1100
+\end{tabular}\\[2pt]
+
+\begin{tabular}{c c c c}
+0100&1011&1101&1100\\
+1011&0100&0010&0100
+\end{tabular}\\[2pt]
+
+\begin{tabular}{c c c c}
+1011&0100&0010&0100\\
+B&4&2&4
+\end{tabular}
+
+\item \(m\) in \([\) \texttt{010A}\ldots\texttt{020B} \(]  =\) 01BF;
+      \(-m = \) FE41
+
+\begin{tabular}{c c c c}
+0&1&B&F\\
+0000&0001&1011&1111
+\end{tabular}\\[2pt]
+
+\begin{tabular}{c c c c}
+0000&0001&1011&1111\\
+1111&1110&0100&0001
+\end{tabular}\\[2pt]
+
+\begin{tabular}{c c c c}
+1111&1110&0100&0001\\
+F&E&4&1
+\end{tabular}
+\end{enumerate}
+
+\section{Signed Arithmetic}
+
+\emph{Outcome 1a:} Choose 16-bit addends with the given specifications and compute the requested
+sums and states using \textbf{signed} arithmetic. You may have a maximum of twelve hex
+\texttt{0} digits among your chosen values (not including the ones already given):
+
+\begin{enumerate}
+\item \texttt{2 8 C 6} \quad + \quad \texttt{5 A 3 1}
+\begin{enumerate}
+\item Sum, saturated:\\[2pt]
+\begin{tabular}{c c c c}
+	{\ \ }2&8&C&6\\
+	+5&A&3&1\\
+	\hline
+	{\ \ }8&2&F&7
+\end{tabular}\\[2pt]
+
+
+Addition of two positives yields a negative result, which indicates overflow.
+
+\boxed{\text{7FFF}}
+
+\item Sum, modular:\\[2pt]
+
+\boxed{\text{82F7}}\\
+\item Carry (y/n): N
+\item Overflow (y/n): Y
+\end{enumerate}
+
+\item \texttt{7 0 F 2} \quad + \quad \texttt{E 7 C D} 
+\begin{enumerate}
+\item Sum, saturated:\\[2pt]
+\begin{tabular}{c c c c c}
+&7&0&F&2\\
++&E&7&C&D\\
+\hline
+1&5&8&B&F
+\end{tabular}\\[2pt]
+
+\boxed{\text{58BF}}\\
+
+\item Sum, modular:\\[2pt]
+\boxed{\text{58BF}}\\
+\item Carry (y/n): Y
+\item Overflow (y/n): N
+\end{enumerate}
+
+\item \texttt{B B A A} \quad + \quad \texttt{8 A C E}
+\begin{enumerate}
+\item Sum, saturated:\\
+\begin{tabular}{c c c c c}
+&B&B&A&A\\
++&8&A&C&E\\
+\hline
+1&4&7&7&8
+\end{tabular}\\
+
+\boxed{\text{8000}}\\
+\item Sum, modular: \\
+\boxed{\text{4778}}
+\item Carry (y/n):Y
+\item Overflow (y/n):Y
+\end{enumerate}
+
+\item \texttt{A 1 4 B} \quad + \quad \texttt{9 A 7 0}
+\begin{enumerate}
+\item Sum, saturated:\\
+\begin{tabular}{c c c c c}
+&A&1&4&B\\
++&9&A&7&0\\
+\hline
+1&3&B&B&B
+\end{tabular}\\[2pt]
+\text{Two negatives result in a positive, overflow}\\[2pt]
+\boxed{\text{8000}}\\\
+\item Sum, modular: \\
+\boxed{\text{3BBB}}
+\item Carry (y/n):Y
+\item Overflow (y/n):Y
+\end{enumerate}
+
+\item \texttt{A 2 1 9} \quad + \quad \texttt{2 A D E}
+\begin{enumerate}
+\item Sum, saturated:\\[2pt]
+\begin{tabular}{c c c c c}
+&A&2&1&9\\
++&2&A&D&E\\
+\hline
+&C&C&F&7
+\end{tabular}\\[2pt]
+\boxed{\text{CCF7}}\\
+\item Sum, modular: \boxed{\text{CCF7}}
+\item Carry (y/n):N 
+\item Overflow (y/n):N
+\end{enumerate}
+
+\item \texttt{5 8 0 0} \quad + \quad \texttt{0 F A A}
+\begin{enumerate}
+\item Sum, saturated: \\
+\begin{tabular}{c c c c c}
+&5&8&0&0\\
++&0&F&A&A\\
+\hline
+&6&7&A&A
+\end{tabular}\\[2pt]
+\boxed{\text{67AA}}\\[2pt]
+\item Sum, modular:\\
+\boxed{\text{67AA}}\\[2pt]
+\item Carry (y/n):N
+\item Overflow (y/n):N
+\end{enumerate}
+
+\item \texttt{C 0 0 0} \quad + \quad \texttt{C 0 0 0}
+\begin{enumerate}
+\item Sum, saturated:\\
+\begin{tabular}{c c c c c}
+&C&0&0&0\\
++&C&0&0&0\\
+\hline
+1&8&0&0&0
+\end{tabular}\\[2pt]
+\text{Two negatives, negative result, no overflow}\\
+\boxed{\text{8000}}\\[2pt]
+\item Sum, modular:\\
+\boxed{\text{8000}}\\[2pt]
+\item Carry (y/n):Y
+\item Overflow (y/n):N
+\end{enumerate}
+
+\end{enumerate}
+
+\section{Units of Information}
+
+\emph{Outcome 1a, 6 answers:} Many storage manufacturers sell the same product at different capacities
+(e.g., Western Digital My Book; Drobo storage array; SanDisk SDXC Memory Card). Go window shopping and
+find product listings for the smallest- and largest-capacity versions of such a product.
+\begin{enumerate}
+\item (not graded; mainly for reference) Provide the brand, model, min/max capacities, and prices of the
+product line you've chosen:
+
+My Book Duo:\\ 
+\indent\indent\indent\text{12TB - \$499.99 (promo price)}\\
+\indent\indent\indent\text{ 4TB - \$249.99 (promo price)}\\
+
+\item Interpret the device capacities as decimal units (i.e., megabytes, gigabytes, terabytes, etc.).
+Show your calculations to answer the following:
+
+\begin{enumerate}
+\item How much does a kilobyte cost on the smallest-capacity version of the device?
+
+\begin{align*}
+\dfrac{\$249.99}{4\times10^{9}\text{ kb}} = \boxed{\dfrac{\$6.24975\times10^{-8}}{\text{kb}}}
+\end{align*}
+
+
+\item How much does a kilobyte cost on the largest-capacity version of the device?
+
+\begin{align*}
+\dfrac{\$499.99}{12\times10^{9}\text{ kb}} = \boxed{\dfrac{\$4.16658\times10^{-8}}{\text{kb}}}
+\end{align*}
+
+\item What is the price difference, on a per-kilobyte basis, between the smallest-
+and largest-capacity versions of the device?
+\begin{align*}
+\$6.24975\times10^{-8} - \$4.16658\times10^{-8} = \boxed{\$2.083167\times10^{-8}}
+\end{align*}
+
+\end{enumerate}
+
+\item Interpret the device capacities as binary units (i.e., mebibytes, gibibytes, tebibytes, etc.).
+Show your calculations to answer the following:
+
+\begin{enumerate}
+\item How much does a kibibyte cost on the smallest-capacity version of the device?
+
+\begin{align*}
+\dfrac{\$249.99}{4\times2^{30}\text{ kb}} = \boxed{\dfrac{\$5.82053\times10^{-8}}{\text{kb}}}
+\end{align*}
+
+
+\item How much does a kibibyte cost on the largest-capacity version of the device?
+
+\begin{align*}
+\dfrac{\$499.99}{12\times2^{30}\text{ kb}} = \boxed{\dfrac{\$3.88043\times10^{-8}}{\text{kb}}}
+\end{align*}
+
+\item What is the price difference, on a per-kibibyte basis, between the smallest-
+and largest-capacity versions of the device?
+
+\begin{align*}
+\$5.82053\times10^{-8} - \$3.88043\times10^{-8} = \boxed{\$1.9401\times10^{-8}}
+\end{align*}
+
+
+\end{enumerate}
+
+\end{enumerate}
+
+\section{IEEE 754 Encoding}
+
+\emph{Outcome 1a, 8 answers:} Read each question carefully and provide the requested answers using the
+proper encoding:
+
+\begin{enumerate}
+\item Choose a number between 0 and 1 that has at least 4 non-zero digits in the decimal and is
+\emph{not} a power of 2 (e.g., \(0.0625\) is \(2^{-4}\) and thus would not count):
+
+\vspace{0.125in}
+
+Your chosen number in decimal form: 0.5625
+
+\begin{enumerate}
+\item Single-precision (32-bit) approximation:
+
+Sign is positive, first bit is 0.\\
+\begin{align*}
+0.5625\times2&=1.125&1\\
+0.125\times2&=0.25&0\\
+0.25\times2&=0.5&0\\
+0.5\times2&=1.0&1\\
+&&=0.1001
+\end{align*}\\
+
+Normalize:\\
+\begin{align*}
+0.1001 &= 1.001\times2^{-1}\\
+f&=\text{001 0000 0000 0000 0000 0000}\\
+\end{align*}
+\text{Add bias to exponent of two, place in exponent field:}\\[10pt]
+\begin{align*}
+2^{8-1} - 1 + (-1) &= 126\\
+(126)_{10} &= \text{0111 1110} 
+\end{align*}
+
+Put it all together\\[10pt]
+\boxed{\text{0 0111 1110 001 0000 0000 0000 0000 0000}}
+
+ 
+
+\item Double-precision (64-bit) approximation:
+
+Steps identical until decision of f:\\[10pt]
+\begin{align*}
+f&=\text{0010 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000}
+\end{align*}
+
+\begin{align*}
+2^{11-1} - 1 + (-1) = 1022\\
+(1022)_{10} = 011 1111 1110
+\end{align*}
+
+0011 1111 1110 0010 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
+
+\boxed{\text{3FE2 0000 0000 0000}}
+\end{enumerate}
+
+\item Determine the smallest positive whole number that cannot be represented in memory with the
+given floating point encoding, and state why:
+
+\begin{enumerate}
+\item \ldots in single-precision (32-bit):
+
+$s = 0,\text{ e = 1111 1110},\text{ f = 111 1111 1111 1111 1111}$
+
+\begin{align*}
+(1 + (f \times 2^{-23})) \times 2^{23} &= 1111 1111 1111 1111 1111 1111 \\
+1111 1111 1111 1111 1111 1111 + 10 &= \boxed{1\times2^{24} + 1}
+\end{align*}
+
+This number cannot be represented in 32-bit IEEE as the least significant bit is too many orders of magnitude away from the most significant bit to be represented in f.
+
+\item \ldots in double-precision (64-bit):
+
+$s = 0,\text{ e = 111 1111 1110},$\\$\text{ f = 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111}$\\
+
+
+Using the same model as above, :\\
+
+\begin{align*}
+(1 + (f \times 2^{-52})) \times 2^{52} &= 1 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111 1111\\
+1111 1111 1111 1111 1111 1111 + 10 &= \boxed{1\times2^{53} + 1}
+\end{align*}
+
+This number cannot be represented in 64-bit IEEE as the least significant bit is too many orders of magnitude away from the most significant bit to be represented in f.
+
+\end{enumerate}
+
+\item Choose an 8-digit hexadecimal number where \emph{no} digit is repeated nor sequential
+(e.g., \texttt{134F EA85} is not allowed because of \texttt{F} followed by \texttt{E}):
+
+\vspace{0.125in}
+
+\texttt{472A 6B31}
+
+\begin{enumerate}
+\item Provide the IEEE 754 floating-point value that these bits represent in base 2 (use scientific notation):\\
+
+\text{0100 0111 0010 1010 0110 1011 0011 0001}
+
+$s = 0, \text{ } e = \text{1000 1110}, \text{ } f =\text{010 1010 0110 1011 0011 0001}$
+
+\begin{align*}
+e &= 142\\
+f \times 2^{-23} + 1 &= \text{1.010 1010 0110 1011 0011 0001}\\
+((f \times 2^{-23}) + 1) \times 2^{(142 - 127)}  &= \text{1010 1010 0110 1011 . 0011 0001}\\
+&=\boxed{1.010 1010 0110 1011 0011 0001 \times 2^{15}}
+\end{align*}
+
+
+\item Provide its closest approximate value in base 10 (use scientific notation if necessary):\\
+
+\text{Using Dorin's method, which employs elementary school techniques that I now know} \\ \text{need not be shown, get  decimal number left of radix point = 43627}\\
+
+\text{Add to this: }\\
+\begin{align*}
+43627 + \dfrac{1}{2^{3}} + \dfrac{1}{2^{4}} + \dfrac{1}{2^{8}} &= 43627.1252441797\\
+&= \boxed{4.36271252441797 \times 10^4}
+\end{align*}
+
+
+\end{enumerate}
+
+\item Choose 16-digit hexadecimal number where no more than 2 adjacent digits are the same
+(e.g., \texttt{0102 EFF3 E157 C411} is not allowed because of \texttt{FF} and \texttt{11}):\\
+
+\texttt{0352 1126 89A2 BC03}
+
+\begin{enumerate}
+\item Provide the IEEE 754 floating-point value that these bits represent in base 2 (use scientific notation):\\
+
+Convert to binary:\\
+
+\texttt{0000 0011 0101 0010 0001 0001 0010 0110 1000 1001 1010 0010 1011 1100 0000 0011}\\
+
+$s=0, e=\texttt{000 0011 0101},$\\
+$f=\texttt{0010 0001 0001 0010 0110 1000 1001 1010 0010 1011 1100 0000 0011}$\\
+
+$e < 2046, s = 0$ so number is positive:\\
+
+$e = 16 + 32 + 5 = 53$\\
+$e - 1023 = -970$\\
+
+$(1 + f\times2^{-52})\times2^{(-970)}  = \boxed{1.00100001 00010010011010001001101000101011110000000011 \times 2^{-970}}$
+
+ 
+
+\item Provide its closest approximate value in base 10 (use scientific notation if necessary):
+
+$\boxed{\dfrac{1}{2^{970}} + \dfrac{1}{2^{973}} + \dfrac{1}{2^{978}} + \text{...}}$
+
+\end{enumerate}
+
+\end{enumerate}
+
+\section{Character Encoding}
+
+\emph{Outcome 1b, 44 answers:} Read each question carefully and provide the requested answers using the
+proper encoding. \emph{Remember to show your work to prove that you encoded these manually:}
+
+\begin{enumerate}
+\item The city of Los Angeles is unhappy with the Unicode SNOWMAN character,
+as they are unable to use it on their official documents to represent a fun day in the snow.
+They requested a new ``sandman'' symbol in its place.
+
+Pick a codepoint for this new character, and show how it would be encoded in UTF-8, UTF-16, and UTF-32.
+The codepoint must be have 6 unique digits and start with a \texttt{10} (i.e., it belongs under
+Supplemental Private Use Area-B).
+
+\texttt{103BDE}
+
+\text{Binary rep: 0001 0000 0011 1011 1101 1110}
+
+\begin{enumerate}
+\item UTF-8:
+
+Strip leading zeroes and respace digits:
+
+\text{100 000011 101111 011110}\\
+
+Add encoding bits:
+
+\text{11110100 10000011 10101111 10011110}\\
+
+Convert to Hex:
+
+\boxed{\text{F4 83 AF 9E}}
+
+\item UTF-16:
+
+\begin{tabular}{l l l l}
+&10&3B&DE\\
+-&01&00&00\\
+\hline
+&0E&3B&DE 
+\end{tabular}\\
+
+Convert to binary:
+
+\text{0000 1110 0011 1011 1101 1110}\\
+
+Remove leading zeros and respace bits:
+
+\text{11 10001110 11 11011110}\\
+
+Add in encoding bits:
+
+\text{11011011 10001110 11011111 11011110}\\
+
+Convert to hex:
+
+\boxed{\text{DB 8E DF DE}}\\
+
+\item UTF-32:
+
+\boxed{\text{00 10 3B DE}}
+
+\end{enumerate}
+
+\item Encode the first eight letters of your first and last name combined (including the space
+in between) as requested, \emph{replacing four of them} with corresponding characters from the
+Enclosed Alphanumerics Unicode block (uppercase or lowercase, your choice):\\
+
+First 8 characters including space: Harris L - Replacing H, both r, and L (
+
+\begin{enumerate}
+\item UTF-8:\\
+
+\text{U+24BD U+0061 U+24E1 U+24E1 U+0069 U+0073 U+0020 U+24C1}\\
+
+(H) $\rightarrow$ \text{0010 0100 1011 1101} $\rightarrow$ 1110 0010 1001 0010 1011 1101 $\rightarrow$ E2 92 BD
+
+a $\rightarrow$ \text{0000 0000 0110 0001} $\rightarrow$ 0110 0001 $\rightarrow$ 61
+
+(r) $\rightarrow$ \text{0010 0100 1110 0001} $\rightarrow$ \text{1110 0010 1001 0011 1010 0001} $\rightarrow$ E2 93 A1
+
+i $\rightarrow$ \text{0000 0000 0110 1001} $\rightarrow$ 0110 1001 $\rightarrow$ 69
+
+s $\rightarrow$ \text{0000 0000 0111 0011} $\rightarrow$ 0111 0011 $\rightarrow$ 73
+
+space $\rightarrow$ \text{0000 0000 0010 0000} $\rightarrow$ 0010 0000 $\rightarrow$ 20
+
+(L) $\rightarrow$ \text{0010 0100 1100 0001} $\rightarrow$ 1110 0010 1001 0011 1000 0001 $\rightarrow$ E2 93 81\\
+
+\boxed{\text{E2 92 BD 61 E2 93 A1 E2 93 A1 69 73 20 E2 93 81}}
+
+\item UTF-16:\\
+
+No characters have codepoint > FFFF, so all encodings are still 16 bits\\
+
+\text{U+24BD U+0061 U+24E1 U+24E1 U+0069 U+0073 U+0020 U+24C1}\\
+
+\boxed{\text{24 BD 00 61 24 E1 24 E1 00 69 00 73 00 20 24 C1}}
+
+\item UTF-32:
+
+\boxed{\text{0000 24BD 0000 0061 0000 24E1 0000 24E1 0000 0069 0000 0073 0000 0020 0000 24C1}}
+
+\end{enumerate}
+
+(since we're dealing with Unicode anyway, if your name, when properly written, has an accent or
+other diacritical, then use that too)
+
+\item Choose four emoji without variants (the monster master list can be found in
+\url{http://unicode.org/emoji/charts/full-emoji-list.html}) to describe your dream vacation.
+Encode them:
+U+26F0 U+1F3D5 U+1F304 U+1F30C 
+
+
+\begin{enumerate}
+\item UTF-8:
+
+Convert to Binary:\\
+
+\begin{tabular}{l r}
+U+26F0&\text{0010 0110 1111 0000}\\
+U+1F3D5&\text{0001 1111 0011 1101 0101}\\
+U+1F304&\text{0001 1111 0011 0000 0100}\\
+U+1F30C&\text{0001 1111 0011 0000 1100}
+\end{tabular}\pagebreak
+
+Respace bits and pad:\\
+
+\begin{tabular}{l r}
+U+26F0&\text{0010 011011 110000}\\
+U+1F3D5&\text{000 011111 001111 010101}\\
+U+1F304&\text{000 011111 001100 000100}\\
+U+1F30C&\text{000 011111 001100 001100}
+\end{tabular}\\
+
+Add encoding bits:\\
+
+\begin{tabular}{l r}
+U+26F0&\text{11100010 10011011 10110000}\\
+U+1F3D5&\text{11110000 10011111 10001111 10010101}\\
+U+1F304&\text{11110000 10011111 10001100 10000100}\\
+U+1F30C&\text{11110000 10011111 10001100 10001100}
+\end{tabular}\\
+
+Convert back to hex:
+
+\begin{tabular}{l r}
+U+26F0&\text{E2 9B B0}\\
+U+1F3D5&\text{F0 9F 8F 95}\\
+U+1F304&\text{F0 9F 8C 84}\\
+U+1F30C&\text{F0 9F 8C 8C}
+\end{tabular}\\
+
+\boxed{\texttt{E2 9B B0 F0 9F 8F 95 F0 9F 8C 84 F0 9F 8C 8C}}\\
+
+\item UTF-16: \\
+
+Prepare for Conversion to binary:\\
+
+\begin{tabular}{l r}
+U+26F0&\text{26 F0}\\
+U+1F3D5&\text{0F3D5}\\
+U+1F304&\text{0F304}\\
+U+1F30C&\text{0F30C}
+\end{tabular}\\
+
+
+Convert all but first to binary:\\
+
+\begin{tabular}{l r}
+U+26F0&\text{26 F0}\\
+U+1F3D5&\text{0000 1111 0011 1101 0101}\\
+U+1F304&\text{0000 1111 0011 0000 0100}\\
+U+1F30C&\text{0000 1111 0011 0000 1100}
+\end{tabular}\\
+
+Respace bits:\\
+
+\begin{tabular}{l r}
+U+26F0&\text{26 F0}\\
+U+1F3D5&\text{00 00111100 11 11010101}\\
+U+1F304&\text{00 00111100 11 00000100}\\
+U+1F30C&\text{00 00111100 11 00001100}
+\end{tabular}\\
+
+Add encoding bits:\\
+
+\begin{tabular}{l r}
+U+26F0&\text{26 F0}\\
+U+1F3D5&\text{1101 1000 0011 1100 1101 1111 11010101}\\
+U+1F304&\text{1101 1000 0011 1100 1101 1111 0000 0100}\\
+U+1F30C&\text{1101 1000 0011 1100 1101 1111 0000 1100}
+\end{tabular}\\
+
+Convert back to hex:\\
+
+\begin{tabular}{l r}
+U+26F0&\text{26 F0}\\
+U+1F3D5&\text{D8 3C DF D5}\\
+U+1F304&\text{D8 3C DF 04}\\
+U+1F30C&\text{D8 3C DF 0A}
+\end{tabular}\\
+
+\boxed{\texttt{26 F0 D8 3C DF D5 D8 3C DF 04 D8 3C DF 0A}}\\
+
+\item UTF-32:
+
+\boxed{\texttt{00 00 26 F0 00 01 F3 D5 00 01 F3 04 00 01 F3 0C}}
+
+\end{enumerate}
+
+\emph{Fun tip:} Remember that there are \emph{flag} emoji to represent specific locations.
+
+\item This one is given 5 times the weight: explain why \url{https://xkcd.com/380/} is funny.
+(yes, it's funny)
+Remember, XKCD comics include a mouseover caption that is an integral part of the strip. \\
+
+This xkcd is funny because the basilisk is still fatal on sight \emph{even in emoji form}. Even funnier, though, is the caption, which says that the eye of the basilisk character has the codepoint U+FDD0 which is actually the unicode "no character" symbol. Ha!
+
+\end{enumerate}
+
+\end{document}

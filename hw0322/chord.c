@@ -13,6 +13,12 @@
 #include <assert.h>
 
 int main(int argc, char* argv[]) {
+
+    if (argc != 2) {
+        printf("You've entered an invalid number of arguments.\n");
+        return 0;
+    }
+
     char *chord = argv[1];
     int chordLen = strlen(chord);
     char* notes[] = {"A", "A#", "B", "C", "C#", "D", "D#", 
@@ -23,14 +29,17 @@ int main(int argc, char* argv[]) {
     int root = -1;
     
     for ( i = 0; i < noteNum; i = i + 1) {
-        if (strlen(notes[i]) == chordLen && strncmp(notes[i], chord, chordLen) == 0) { //why seg fault if # is first character?
+        if (strlen(notes[i]) == chordLen && strncmp(notes[i], chord, chordLen) == 0) { 
             root = i;
             break;
         }
     }
 
-    assert(root >= 0); //if root is not a valid note, error
-    
+    if (root < 0) { //ensure that root note is valid
+        printf("You've entered an invalid root note.\n");
+        return 0;
+    }   
+
     int maj_third = (root + 4) % noteNum;
     int min_third = (root + 3) % noteNum;
     int perf_fifth = (root + 7) % noteNum;

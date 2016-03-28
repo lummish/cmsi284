@@ -13,17 +13,17 @@
 #include <assert.h>
 
 int main(int argc, char* argv[]) {
-    
-    char *chordCheck = argv[1];
-    char *chord = argv[2];
-    char notes[] = "ABCDEFG";
-    int noteNum = 7;
+    char *chord = argv[1];
+    int chordLen = strlen(chord);
+    char* notes[] = {"A", "A#", "B", "C", "C#", "D", "D#", 
+                     "E", "F", "F#", "G", "G#"};
+    int noteNum = 12;
     
     int i;
     int root = -1;
     
-    for ( i = 0; i < 7; i = i + 1) {
-        if (notes[i] == chord[0]) { //why seg fault if # is first character?
+    for ( i = 0; i < noteNum; i = i + 1) {
+        if (strlen(notes[i]) == chordLen && strncmp(notes[i], chord, chordLen) == 0) { //why seg fault if # is first character?
             root = i;
             break;
         }
@@ -31,19 +31,22 @@ int main(int argc, char* argv[]) {
 
     assert(root >= 0); //if root is not a valid note, error
     
-    int third = (root + 2) % 7;
-    int fifth = (root + 4) % 7;
-    int seventh = (root + 6) % 7;
-    int dimSev = (root + 5) % 7;
+    int maj_third = (root + 4) % noteNum;
+    int min_third = (root + 3) % noteNum;
+    int perf_fifth = (root + 7) % noteNum;
+    int min_seventh = (root + 10) % noteNum;
+    int maj_sixth = (root + 9) % noteNum;
    
     //major
-    printf("%s: %s %c# %c#\n", chord, chord, notes[third], notes[fifth]);
+    printf("%s: %s %s %s\n", chord, chord, notes[maj_third], notes[perf_fifth]);
     //minor
-    printf("%sm: %s %c %c#\n", chord, chord, notes[third], notes[fifth]);
+    printf("%sm: %s %s %s\n", chord, chord, notes[min_third], notes[perf_fifth]);
     //major 7th
-    printf("%s7: %s %c# %c# %c\n", chord, chord, notes[third], notes[fifth], notes[seventh]);
+    printf("%s7: %s %s %s %s\n", chord, chord, notes[maj_third], notes[perf_fifth], 
+           notes[min_seventh]);
     //dim 7th
-    printf("%sdim7: %s %c %c %c#\n", chord, chord, notes[third], notes[fifth], notes[dimSev]);
+    printf("%sdim7: %s %s %s %s\n", chord, chord, notes[maj_third], notes[perf_fifth], 
+           notes[maj_sixth]);
 
     return 0;
     

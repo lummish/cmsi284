@@ -10,7 +10,7 @@ int main() {
 	char* words[] = {"what", "is", "up"};
 	char* emptyWords[] = {};
 
-	madlib_by_numbers(str0, 3, words); //Empty string
-	madlib_by_numbers(str2, 4, words); //Word count larger than word array
+	assert(strncmp(madlib_by_numbers(str0, 3, words), "") == 0); //Empty string
+	strncmp(madlib_by_numbers(str2, 4, words), ); //Word count larger than word array
 	madlib_by_numbers(str1, 0, emptyWords); //Empty words array
 }

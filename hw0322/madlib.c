@@ -14,22 +14,25 @@ char* madlib(char* template, char* adjective, char* noun, char* verb){
 		}
 	}
 
-	assert(sCount == 3);
+	if (sCount != 3) {
+		printf("Improper number of formatting specifiers\n");
+		return "";
+	}
 
 	int templateLength = strlen(template);
 	int adjLength = strlen(adjective);
 	int nounLength = strlen(noun);
 	int verbLength = strlen(verb);
 
-	char outStr[templateLength + adjLength + nounLength + verbLength + 1]; //1 for newline char
-	strcpy(outStr, template);
-	strcat(outStr, "\n");
-	printf(outStr, adjective, noun, verb);
+	char* outStr = malloc(sizeof(char) * (templateLength + 
+				   adjLength + nounLength + verbLength + 1)); //1 for null char
+	sprintf(outStr, template, adjective, noun, verb);
 
-	return template;
+	return outStr;
 }
 
 int main() {
-	madlib("The %s %s %s.", "big", "man", "fell");
+	char* test = madlib("The %s %s %s.", "big", "man", "fell");
+	printf(test);
 	return 0;
 }

@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include "reverse-range-in-place.h"
 
+/* A method which reverses the order of the words found in a string. White space, as well,
+   is found in reverse order from the original string*/
 void reverse_words(char* string) {
 	int stringLen = strlen(string);
 

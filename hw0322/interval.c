@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
 	if (argc != 3) {
 		printf("Sorry, you entered an incorrect number of arguments\n");
@@ -17,9 +17,8 @@ int main(int argc, char const *argv[])
 							  "tritone", "perfect fifth", "minor sixth",
 							  "major sixth", "minor seventh", "major seventh"};
 	int numNotes = 12;
-	//test if arguments are valid! Must make sure if its 
-	//char* startNote = argv[1]; //may need to change to 2
-	//char* endNote = argv[2];
+	char *startNote = argv[1]; 
+	char *endNote = argv[2];
 
 	int startNoteIdx = -1;
 	int endNoteIdx = -1;
@@ -27,12 +26,12 @@ int main(int argc, char const *argv[])
 
 	for (i = 0; i < numNotes; i++) {
 		
-		if ((strlen(notes[i]) == strlen(argv[1])) && 
-			strncmp(notes[i], argv[1], strlen(argv[1])) == 0) {
+		if ((strlen(notes[i]) == strlen(startNote)) && 
+			strncmp(notes[i], startNote, strlen(startNote)) == 0) {
 			startNoteIdx = i;
 		}
-		if ((strlen(notes[i]) == strlen(argv[2])) &&
-			(strncmp(notes[i], argv[2], strlen(argv[2])) == 0)) {
+		if ((strlen(notes[i]) == strlen(endNote)) &&
+			(strncmp(notes[i], endNote, strlen(endNote)) == 0)) {
 			endNoteIdx = i;
 		}
 	}
@@ -50,7 +49,7 @@ int main(int argc, char const *argv[])
 		i++;
 	}
 
-	printf("%s to %s is a %s.\n", argv[1], argv[2], interval_names[interval]);
+	printf("%s to %s is a %s.\n", startNote, endNote, interval_names[interval]);
 
 	return 0;
 }

@@ -5,10 +5,13 @@
 #include <assert.h>
 
 char* madlib(char* template, char* adjective, char* noun, char* verb){
-	int i;
+	
 	int sCount = 0; //to ensure adequate format space
 
-	for (int i = 0; template[i] != '\0'; i = i + 1) {
+	/*If given inadequate or extra %s specifiers, the program will return an
+	  empty string
+	 */
+	for (int i = 0; template[i] != '\0'; i++) {
 		if (template[i] == '%' && template[i + 1] == 's') {
 			sCount = sCount + 1;
 		}
@@ -25,14 +28,8 @@ char* madlib(char* template, char* adjective, char* noun, char* verb){
 	int verbLength = strlen(verb);
 
 	char* outStr = malloc(sizeof(char) * (templateLength + 
-				   adjLength + nounLength + verbLength + 1)); //1 for null char
+				   adjLength + nounLength + verbLength + 1)); //+1 for null char
 	sprintf(outStr, template, adjective, noun, verb);
 
 	return outStr;
-}
-
-int main() {
-	char* test = madlib("The %s %s %s.", "big", "man", "fell");
-	printf(test);
-	return 0;
 }

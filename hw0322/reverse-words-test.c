@@ -2,11 +2,12 @@
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
+#include "reverse-words.h"
+#include "reverse-range-in-place.h"
 
 void reverse_words(char* string);
 
 void test_reverse_words() {
-	
 	char og_string_1[] = "Reverse my insides!"; //normal
 	char* rev_string_1 = "insides! my Reverse";
 
@@ -36,5 +37,10 @@ void test_reverse_words() {
 	
 	reverse_words(og_string_5);
 	assert(strncmp(og_string_5, rev_string_5, strlen(og_string_5)) == 0);
+}
 
+int main(int argc, char const *argv[])
+{
+	test_reverse_words();
+	return 0;
 }

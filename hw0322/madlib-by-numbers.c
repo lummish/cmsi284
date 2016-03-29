@@ -25,7 +25,7 @@ int string_space(char* template, int wordLens[]) { //may not want to remove poin
 	return sizeof(char) * (total_size + 1); // +1 for null character
 }
 
-int append_word(char* dest, char* word, int idx) { //TODO: handle edge cases
+int append_word(char* dest, char* word, int idx) { 
 	int i;
 	int wordLen = strlen(word);
 	for (i = 0; i < wordLen; i++) {
@@ -34,6 +34,8 @@ int append_word(char* dest, char* word, int idx) { //TODO: handle edge cases
 	return idx; //to keep track of location in string;
 }
 
+//Assumption that user will not attempt malicious input such as making word_count
+//larger than the length of the array
 char* madlib_by_numbers(char* template, int word_count, char* words[]) {
 	int wordLens[word_count];
 	int i;
@@ -59,19 +61,12 @@ char* madlib_by_numbers(char* template, int word_count, char* words[]) {
 		}
 	}
 
-	result[resultIdx] = '\0';
+	result[resultIdx] = '\0'; //have to append null char to end of string
 
 	return result;
 }
 
-int main(){
-	char* wds[] = {"brilliant", "git", "swim"};
 
-	char* madlib = madlib_by_numbers("Hello there you 0 1 9, would you like to go 2ing?", 3, wds);
-	printf("%s\n", madlib);
-	free(madlib);
-	return 0;
-}
 
 
 

@@ -13,6 +13,7 @@ main:
 		call 	printf
 		
 add_quarters:
+		pop 	rsi
 		;mov 	rdx, 0 			; to track remainder
 		xor 	rdx, rdx		; set all bits in rdx to 0
 		mov 	rcx, [q]			; set value of rcx to current coin value

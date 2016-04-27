@@ -15,7 +15,6 @@ add_quarters:
 		;mov 	rdx, 0 			; to track remainder
 		xor 	rdx, rdx		; set all bits in rdx to 0 to nullify msb in dividend
 		mov 	rcx, [q]		; set value of rcx to current coin value
-
 		;divisor debugging
 		;mov 	rdi, debug_divisor
 		;mov 	rsi, rcx
@@ -29,23 +28,19 @@ add_quarters:
 		;call 	printf					; should put rdx in next arg
 
 		;dividend appears fine
-
 		div 	rcx 			; unsigned divide
-
 		;mov 	rdi, debug_format
 		;mov 	rsi, rax		;output quotient first
 		;call printf
 
 		;division operation looks fine		
-
 		push	rax				; push quotient to stack
-		
 		push	rdx 			; want to store remaining value after removing coin
 		xor 	rax, rax 		; reset rax for next label
-
 add_dimes:
 		pop		rax 			; pops previous remainder from top of stack and stores in rax
-		mov 	rdx, 0 			; to track remainder
+		;mov 	rdx, 0 			; to track remainder
+		xor 	rdx, rdx
 		mov 	rcx, [d]		; set value of rcx to current coin value
 		div 	rcx 			; unsigned divide
 		push	rax				; push quotient to stack
@@ -53,14 +48,14 @@ add_dimes:
 		xor 	rax, rax		; reset rax for next label
 add_nickels:
 		pop		rax 			; pops previous remainder from top of stack and stores in rax
-		mov 	rdx, 0 			; to track remainder
+		;mov 	rdx, 0 			; to track remainder
+		xor		rdx, rdx
 		mov 	rcx, [n]		; set value of rcx to current coin value
 		div 	rcx 			; unsigned divide
 		push	rax				; push quotient to stack
 		push	rdx 			; want to store remaining value after removing coin
 		xor 	rax, rax		; reset rax for next label
 		jmp		output
-
 ;add_pennies:
 ;		pop		rax 			; pops previous remainder from top of stack and stores in rax
 ;		mov 	rdx, 0 			; to track remainder

@@ -75,13 +75,13 @@ add_nickels:
 ;		mov 	rsi, rax
 ;		call 	printf
 q:		
-		dq 	25
+		dq 	'19'
 
 d:
-		dq 10
+		dq 	'a'
 
 n:
-		dq 5
+		dq 	5
 
 quarter_format:
 		db "Number of quarters: %d", 10, 0
@@ -104,12 +104,15 @@ output:
 		mov 	rdi, penny_format  ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of pennies)
 		call 	printf
+
 		mov 	rdi, nickel_format ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
 		call 	printf
+
 		mov 	rdi, dime_format 	 ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
 		call 	printf
+
 		mov 	rdi, quarter_format ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
 		call 	printf

@@ -88,5 +88,5 @@ output:
 		mov 	rdi, [quarter_format] ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
 		call 	printf
-		pop 	rbx
+		;pop 	rbx
 		ret

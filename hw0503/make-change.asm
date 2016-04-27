@@ -75,10 +75,10 @@ add_nickels:
 ;		mov 	rsi, rax
 ;		call 	printf
 q:		
-		dq 	'19'
+		dq 	25
 
 d:
-		dq 	'a'
+		dq 	10
 
 n:
 		dq 	5

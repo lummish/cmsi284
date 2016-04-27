@@ -21,10 +21,10 @@ add_quarters:
 		mov 	rsi, rcx
 		call 	printf 			; checking value of divisor
 
+		div 	rcx 			; unsigned divide
+
 		pop 	rbx 			;necessary convention
 		ret
-		
-		div 	rcx 			; unsigned divide
 
 		mov 	rdi, debug_format		; move rax back into rdi, rdi stores total remaining value
 		mov 	rsi, rax				; print qoutient first

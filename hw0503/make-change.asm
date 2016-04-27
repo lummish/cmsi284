@@ -102,18 +102,22 @@ debug_divisor:
 output:
 		mov 	rdi, penny_format  ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of pennies)
+		xor 	rax, rax
 		call 	printf
 
 		mov 	rdi, nickel_format ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
+		xor 	rax, rax
 		call 	printf
 
-		;mov 	rdi, dime_format 	 ; to print pennies first
+		mov 	rdi, dime_format 	 ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
-		;call 	printf
+		xor 	rax, rax
+		call 	printf
 
 		mov 	rdi, quarter_format ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
+		xor 	rax, rax
 		call 	printf
 		pop 	rbx 					;necessary convention
 		ret

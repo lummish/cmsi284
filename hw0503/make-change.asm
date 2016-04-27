@@ -9,6 +9,8 @@ main:
 		call	atoi			; turn contents of rdi into integer in rax 
 		mov 	rdi, rax		;testing
 		call 	puts			;testing
+		pop 	rbx
+		ret
 		;mov 	rdi, quarter_format		; move rax back into rdi, rdi stores total remaining value
 		;mov 	rsi, rax
 		;call 	printf

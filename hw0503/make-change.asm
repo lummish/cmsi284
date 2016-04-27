@@ -18,7 +18,7 @@ add_quarters:
 
 		mov 	rdi, debug_format		; move rax back into rdi, rdi stores total remaining value
 		mov 	rsi, rax				; print qoutient first
-		call 	printf					; should put rdx in third next arg
+		call 	printf					; should put rdx in next arg
 		pop 	rbx 			;necessary convention
 		ret
 
@@ -79,7 +79,7 @@ nickel_format:
 penny_format:
 		db "Number of pennies: %d", 10, 0
 debug_format:
-		db "Number of quarters: %d, Remainder: %d", 10, 0
+		db "Number of quarters: %d, Remainder: %d, rcs: %d", 10, 0
 output:
 		mov 	rdi, [penny_format]  ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of pennies)

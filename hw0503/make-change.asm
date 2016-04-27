@@ -56,9 +56,7 @@ add_nickels:
 		mov 	rcx, [n]		; set value of rcx to current coin value
 		div 	rcx 			; unsigned divide
 
-		mov 	rdi, debug_format
-		mov 	rsi, rax		;output quotient first
-		call 	printf
+		;division here looks fine
 
 		push	rax				; push quotient to stack
 		push	rdx 			; want to store remaining value after removing coin
@@ -103,16 +101,16 @@ debug_dividend:
 debug_divisor:
 		db "Divisor: %d", 10, 0
 output:
-		mov 	rdi, [penny_format]  ; to print pennies first
+		mov 	rdi, penny_format  ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of pennies)
 		call 	printf
-		mov 	rdi, [nickel_format] ; to print pennies first
+		mov 	rdi, nickel_format ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
 		call 	printf
-		mov 	rdi, [dime_format] 	 ; to print pennies first
+		mov 	rdi, dime_format 	 ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
 		call 	printf
-		mov 	rdi, [quarter_format] ; to print pennies first
+		mov 	rdi, quarter_format ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
 		call 	printf
 		pop 	rbx 					;necessary convention

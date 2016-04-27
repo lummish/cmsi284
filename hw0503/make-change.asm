@@ -43,6 +43,11 @@ add_dimes:
 		xor 	rdx, rdx
 		mov 	rcx, [d]		; set value of rcx to current coin value
 		div 	rcx 			; unsigned divide
+		
+		mov 	rdi, debug_format
+		mov 	rsi, rax		;output quotient first
+		call printf
+		
 		push	rax				; push quotient to stack
 		push	rdx 			; want to store remaining value after removing coin
 		xor 	rax, rax		; reset rax for next label
@@ -68,7 +73,6 @@ add_nickels:
 ;		mov 	rdi, [pennies_format]
 ;		mov 	rsi, rax
 ;		call 	printf
-
 q:		
 		dq 	25
 

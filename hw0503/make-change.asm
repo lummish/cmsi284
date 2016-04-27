@@ -12,9 +12,9 @@ main:
 		
 add_quarters:
 		mov 	rdx, 0 			; to track remainder
+		mov 	rcx, q			; set value of rcx to current coin value
 		pop 	rbx 			;necessary convention
 		ret
-		mov 	rcx, q			; set value of rcx to current coin value
 		div 	rcx 			; unsigned divide
 		push	rax				; push quotient to stack
 		push	rdx 			; want to store remaining value after removing coin

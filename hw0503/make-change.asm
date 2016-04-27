@@ -13,9 +13,9 @@ main:
 add_quarters:
 		mov 	rdx, 0 			; to track remainder
 		mov 	rcx, q			; set value of rcx to current coin value
+		div 	rcx 			; unsigned divide
 		pop 	rbx 			;necessary convention
 		ret
-		div 	rcx 			; unsigned divide
 		push	rax				; push quotient to stack
 		push	rdx 			; want to store remaining value after removing coin
 		xor 	rax, rax 		; reset rax for next label

@@ -32,15 +32,11 @@ add_quarters:
 
 		div 	rcx 			; unsigned divide
 
-		mov 	rdi, debug_format
-		mov 	rsi, rax		;output quotient first
-		call printf
+		;mov 	rdi, debug_format
+		;mov 	rsi, rax		;output quotient first
+		;call printf
 
-		pop 	rbx 			;necessary convention
-		ret
-
-		
-		
+		;division operation looks fine		
 
 		push	rax				; push quotient to stack
 		
@@ -50,7 +46,7 @@ add_quarters:
 add_dimes:
 		pop		rax 			; pops previous remainder from top of stack and stores in rax
 		mov 	rdx, 0 			; to track remainder
-		mov 	rcx, d		; set value of rcx to current coin value
+		mov 	rcx, [d]		; set value of rcx to current coin value
 		div 	rcx 			; unsigned divide
 		push	rax				; push quotient to stack
 		push	rdx 			; want to store remaining value after removing coin
@@ -58,7 +54,7 @@ add_dimes:
 add_nickels:
 		pop		rax 			; pops previous remainder from top of stack and stores in rax
 		mov 	rdx, 0 			; to track remainder
-		mov 	rcx, n		; set value of rcx to current coin value
+		mov 	rcx, [n]		; set value of rcx to current coin value
 		div 	rcx 			; unsigned divide
 		push	rax				; push quotient to stack
 		push	rdx 			; want to store remaining value after removing coin
@@ -117,4 +113,5 @@ output:
 		mov 	rdi, [quarter_format] ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
 		call 	printf
+		pop 	rbx 					;necessary convention
 		ret

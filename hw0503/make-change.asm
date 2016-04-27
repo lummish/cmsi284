@@ -9,21 +9,18 @@ main:
 		call	atoi			; turn contents of rdi into integer in rax 
 		mov 	rdi, quarter_format		; move rax back into rdi, rdi stores total remaining value
 		mov 	rsi, rax
-		push	rsi 			; so we can actually use this value in a second
 		call 	printf
 		
 add_quarters:
-		pop 	rsi
 		;mov 	rdx, 0 			; to track remainder
-		xor 	rdx, rdx		; set all bits in rdx to 0
-		mov 	rcx, [q]			; set value of rcx to current coin value
+		xor 	rdx, rdx		; set all bits in rdx to 0 to nullify msb in dividend
+		mov 	rcx, [q]		; set value of rcx to current coin value
 
 		;divisor debugging
 		mov 	rdi, debug_divisor
 		mov 	rsi, rcx
 		call 	printf 			; checking value of divisor
 
-		;pop 	rax				; hopefully retains original value
 		;recheck value of rax
 		mov 	rdi, debug_dividend		; move rax back into rdi, rdi stores total remaining value
 		mov 	rsi, rax				; print qoutient first

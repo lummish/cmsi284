@@ -16,8 +16,10 @@ add_quarters:
 		xor 	rdx, rdx		; set all bits in rdx to 0
 		mov 	rcx, q			; set value of rcx to current coin value
 
-		mov 	rdi, rcx
-		call 	puts 			; checking value of divisor
+		;divisor debugging
+		mov 	rdi, debug_divisor
+		mov 	rsi, rcx
+		call 	printf 			; checking value of divisor
 
 		div 	rcx 			; unsigned divide
 
@@ -85,6 +87,8 @@ penny_format:
 		db "Number of pennies: %d", 10, 0
 debug_format:
 		db "Number of quarters: %d, Remainder: %d, rcx: %d", 10, 0
+debug_divisor:
+		db "Divisor: %d", 10, 0
 output:
 		mov 	rdi, [penny_format]  ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of pennies)

@@ -15,9 +15,15 @@ add_quarters:
 		xor 	rdx, rdx		; set all bits in rdx to 0
 		mov 	rcx, q			; set value of rcx to current coin value
 		div 	rcx 			; unsigned divide
-		push	rax				; push quotient to stack
+
+		mov 	rdi, debug_format		; move rax back into rdi, rdi stores total remaining value
+		mov 	rsi, rax				; print qoutient first
+		call 	printf					; should put rdx in third next arg
 		pop 	rbx 			;necessary convention
 		ret
+
+		push	rax				; push quotient to stack
+		
 		push	rdx 			; want to store remaining value after removing coin
 		xor 	rax, rax 		; reset rax for next label
 
@@ -72,7 +78,8 @@ nickel_format:
 
 penny_format:
 		db "Number of pennies: %d", 10, 0
-
+debug_format:
+		db "Number of quarters: %d, Remainder: %d", 10, 0
 output:
 		mov 	rdi, [penny_format]  ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of pennies)

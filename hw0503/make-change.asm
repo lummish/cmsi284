@@ -1,7 +1,6 @@
 		global main
 		extern atoi
 		extern printf
-		extern puts
 		section .text
 main:	
 		push 	rbx				; necessary convention
@@ -109,9 +108,9 @@ output:
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
 		call 	printf
 
-		mov 	rdi, dime_format 	 ; to print pennies first
+		;mov 	rdi, dime_format 	 ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
-		call 	printf
+		;call 	printf
 
 		mov 	rdi, quarter_format ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)

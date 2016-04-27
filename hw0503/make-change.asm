@@ -8,9 +8,9 @@ main:
 		mov		rdi, [rsi + 8]	; move user entered amount to make change of into rdi
 		call	atoi			; turn contents of rdi into integer in rax 
 		push	rax 			; so we can actually use this value in a second
-		mov 	rdi, quarter_format		; move rax back into rdi, rdi stores total remaining value
-		mov 	rsi, rax
-		call 	printf
+		;mov 	rdi, quarter_format		; move rax back into rdi, rdi stores total remaining value
+		;mov 	rsi, rax
+		;call 	printf
 		
 add_quarters:
 		;mov 	rdx, 0 			; to track remainder

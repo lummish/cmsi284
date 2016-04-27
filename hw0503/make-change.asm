@@ -7,7 +7,7 @@ main:
 		push 	rbx
 		mov		rdi, [rsi + 8]	; move user entered amount to make change of into rdi
 		call	atoi			; turn contents of rdi into integer in rax 
-		mov 	rdi, rax		;testing
+		mov 	rdi, [rax]		;testing
 		call 	puts			;testing
 		pop 	rbx
 		ret

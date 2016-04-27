@@ -21,14 +21,17 @@ add_quarters:
 		mov 	rsi, rcx
 		call 	printf 			; checking value of divisor
 
+		;recheck value of rax
+		mov 	rdi, debug_dividend		; move rax back into rdi, rdi stores total remaining value
+		mov 	rsi, rax				; print qoutient first
+		call 	printf					; should put rdx in next arg
+
 		div 	rcx 			; unsigned divide
 
 		pop 	rbx 			;necessary convention
 		ret
 
-		mov 	rdi, debug_format		; move rax back into rdi, rdi stores total remaining value
-		mov 	rsi, rax				; print qoutient first
-		call 	printf					; should put rdx in next arg
+		
 		
 
 		push	rax				; push quotient to stack
@@ -89,6 +92,8 @@ penny_format:
 		db "Number of pennies: %d", 10, 0
 debug_format:
 		db "Number of quarters: %d, Remainder: %d, rcx: %d", 10, 0
+debug_dividend:
+		db "Dividend: %d", 10, 0
 debug_divisor:
 		db "Divisor: %d", 10, 0
 output:

@@ -1,11 +1,17 @@
 		global main
 		extern atoi
 		extern printf
+		extern puts
 		section .text
 main:	
 		push 	rbx				; necessary convention
+		cmp 	rdi, 2 			; 
+		jne		incorrect_args_error
 		mov		rdi, [rsi + 8]	; move user entered amount to make change of into rdi
 		call	atoi			; turn contents of rdi into integer in rax 
+		cmp 	rax, 0
+		jl 		negative_error
+
 		;mov 	rdi, quarter_format		; move rax back into rdi, rdi stores total remaining value
 		;mov 	rsi, rax
 		;call 	printf
@@ -99,6 +105,18 @@ debug_dividend:
 		db "Dividend: %d", 10, 0
 debug_divisor:
 		db "Divisor: %d", 10, 0
+negative_amt_format:
+		db "Cannot make negative change.", 10, 0
+incorrect_args_format:
+		db "Incorrect number of arguments.", 10, 0
+negative_error:
+		mov 	rdi, negative_amt_format
+		call 	puts
+		jmp 	end
+incorrect_args_error:
+		mov 	rdi, incorrect_args_format
+		call 	puts
+		jmp 	end
 output:
 		mov 	rdi, penny_format  ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of pennies)
@@ -118,6 +136,8 @@ output:
 		mov 	rdi, quarter_format ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
 		xor 	rax, rax
-		call 	printf
+		call 	printf		
+end:
 		pop 	rbx 					;necessary convention
 		ret
+

@@ -1,6 +1,7 @@
 		global main
 		extern atoi
 		extern printf
+		extern puts
 		section .text
 main:	
 		push 	rbx				; necessary convention
@@ -14,6 +15,10 @@ add_quarters:
 		;mov 	rdx, 0 			; to track remainder
 		xor 	rdx, rdx		; set all bits in rdx to 0
 		mov 	rcx, q			; set value of rcx to current coin value
+
+		mov 	rdi, rcx
+		call 	puts 			; checking value of divisor
+
 		div 	rcx 			; unsigned divide
 
 		mov 	rdi, debug_format		; move rax back into rdi, rdi stores total remaining value
@@ -79,7 +84,7 @@ nickel_format:
 penny_format:
 		db "Number of pennies: %d", 10, 0
 debug_format:
-		db "Number of quarters: %d, Remainder: %d, rcs: %d", 10, 0
+		db "Number of quarters: %d, Remainder: %d, rcx: %d", 10, 0
 output:
 		mov 	rdi, [penny_format]  ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of pennies)

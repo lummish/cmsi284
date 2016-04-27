@@ -2,7 +2,6 @@
 		extern atoi
 		extern printf
 		section .text
-
 main:	
 		mov		rdi, [rsi + 8]	; move user entered amount to make change of into rdi
 		call	atoi			; turn contents of rdi into integer in rax 
@@ -79,3 +78,4 @@ output:
 		mov 	rdi, [quarter_format] ; to print pennies first
 		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
 		call 	printf
+		ret

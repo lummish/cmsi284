@@ -24,11 +24,17 @@ add_quarters:
 		;divisor appears fine
 
 		;recheck value of rax
-		mov 	rdi, debug_dividend		; move rax back into rdi, rdi stores total remaining value
-		mov 	rsi, rax				; print qoutient first
-		call 	printf					; should put rdx in next arg
+		;mov 	rdi, debug_dividend		; move rax back into rdi, rdi stores total remaining value
+		;mov 	rsi, rax				; print qoutient first
+		;call 	printf					; should put rdx in next arg
+
+		;dividend appears fine
 
 		div 	rcx 			; unsigned divide
+
+		mov 	rdi, debug_format
+		mov 	rsi, rax		;output quotient first
+		call printf
 
 		pop 	rbx 			;necessary convention
 		ret

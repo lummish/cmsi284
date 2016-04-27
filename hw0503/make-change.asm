@@ -7,9 +7,9 @@ main:
 		push 	rbx				; necessary convention
 		mov		rdi, [rsi + 8]	; move user entered amount to make change of into rdi
 		call	atoi			; turn contents of rdi into integer in rax 
-		mov 	rdi, quarter_format		; move rax back into rdi, rdi stores total remaining value
-		mov 	rsi, rax
-		call 	printf
+		;mov 	rdi, quarter_format		; move rax back into rdi, rdi stores total remaining value
+		;mov 	rsi, rax
+		;call 	printf
 		
 add_quarters:
 		;mov 	rdx, 0 			; to track remainder
@@ -17,9 +17,11 @@ add_quarters:
 		mov 	rcx, [q]		; set value of rcx to current coin value
 
 		;divisor debugging
-		mov 	rdi, debug_divisor
-		mov 	rsi, rcx
-		call 	printf 			; checking value of divisor
+		;mov 	rdi, debug_divisor
+		;mov 	rsi, rcx
+		;call 	printf 			; checking value of divisor
+
+		;divisor appears fine
 
 		;recheck value of rax
 		mov 	rdi, debug_dividend		; move rax back into rdi, rdi stores total remaining value

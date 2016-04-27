@@ -8,6 +8,7 @@ main:
 		mov 	rdi, [quarter_format] 		; move rax back into rdi, rdi stores total remaining value
 		mov 	rsi, rax
 		call 	printf
+		ret
 add_quarters:
 		mov 	rdx, 0 			; to track remainder
 		mov 	rcx, [q]		; set value of rcx to current coin value

@@ -3,14 +3,13 @@
 		extern printf
 		section .text
 main:	
-		push 	rbx
+		push 	rbx				; necessary convention
 		mov		rdi, [rsi + 8]	; move user entered amount to make change of into rdi
 		call	atoi			; turn contents of rdi into integer in rax 
 		mov 	rdi, quarter_format		; move rax back into rdi, rdi stores total remaining value
 		mov 	rsi, rax
 		call 	printf
-		pop 	rbx 
-		ret
+		
 add_quarters:
 		mov 	rdx, 0 			; to track remainder
 		mov 	rcx, q		; set value of rcx to current coin value
@@ -18,6 +17,8 @@ add_quarters:
 		push	rax				; push quotient to stack
 		push	rdx 			; want to store remaining value after removing coin
 		xor 	rax, rax 		; reset rax for next label
+		pop 	rbx 			;necessary convention
+		ret
 add_dimes:
 		pop		rax 			; pops previous remainder from top of stack and stores in rax
 		mov 	rdx, 0 			; to track remainder

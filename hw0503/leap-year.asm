@@ -9,6 +9,8 @@ main:
 		jne		arg_error
 		mov 	rdi, [rsi + 8]	
 		call 	atoi
+		cmp		rax, 0			; if year is negative, improper input
+		jl		arg_error
 		push 	rax				; will need to be able to access this value even after divide	
 		mov 	rcx, 4			; will use to divide by 4
 		xor		rdx, rdx

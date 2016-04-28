@@ -31,9 +31,10 @@ main:
 		jne		no_out
 		jmp		yes_out
 arg_error:
-		puts 	arg_out
+		mov 	rdi, arg_out
+		jmp 	end
 arg_out:
-		db 	"Improper argument format."
+		db 	"Improper argument format.", 10, 0
 yes_out:
 		mov 	rdi, yes_string
 		pop 	rsi
@@ -48,5 +49,5 @@ no_string:
 	db 	"The year %d is not a leap year", 10, 0
 end:	
 		call 	printf
-		pop rbx
+		pop 	rbx
 		ret

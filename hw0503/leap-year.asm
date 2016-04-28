@@ -1,4 +1,7 @@
 		global main
+		extern printf
+		extern puts
+		extern atoi
 		section .text
 main:
 		push 	rbx				; necessary convention
@@ -28,6 +31,9 @@ main:
 		jne		no_out
 		jmp		yes_out
 arg_error:
+		puts 	arg_out
+arg_out:
+		db 	"Improper argument format."
 yes_out:
 		mov 	rdi, yes_string
 		pop 	rsi
@@ -38,7 +44,7 @@ no_out:
 		jmp 	end
 yes_string:
 	db 	"The year %d is a leap year", 10, 0
-no_str:
+no_string:
 	db 	"The year %d is not a leap year", 10, 0
 end:	
 		call 	printf

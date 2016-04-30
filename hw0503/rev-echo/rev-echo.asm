@@ -7,25 +7,28 @@
 		section 	.text
 main:	
 		push 	rbx
-		mov		r13, rdi
-		mov		r12, rsi
+		mov		r13, rdi	; r13 stores number of arguments (count of strings to reverse)
+		mov		r12, rsi 	; r12 stores pointer to rsi
 next:	
-		mov 	rdi, [r12]
-		call	strlen
-		xor		rax, rax
-		call	puts
-		mov		rdi, rax
+		mov 	rdi, [r12] 	; move string to current arg to rdi
+		;push	r12			; store r12 for later use
+		call	strlen		; get length of arg and store in rax
+		mov		rdx, rax	; move contents of rax to rdx (last argument of rev range)
 		
-
-		mov		rdi, rax
-		call 	printf
-		mov		rcx, rax
-		xor		rsi, rsi
-		pop		rdi
+		;mov 	rsi, rdx
+		;mov 	rdi, num_format
+		;call 	printf
+		;call	puts
+		
+		;call 	printf
+		;mov		rdx, rax	
+		xor		rsi, rsi		; second arg (start of string) should be 0
+		push 	rdi				; to make sure rdi address remains constant
 		call	reverse_range_in_place
-		mov		rsi, rdi
-		mov		rdi, format
-		call	printf
+		pop 	rsi
+		mov 	rdi, format
+		call 	printf
+		xor		rax, rax
 		add		r12, 8
 		dec		r13
 		jnz		next

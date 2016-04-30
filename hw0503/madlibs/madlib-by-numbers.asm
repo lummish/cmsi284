@@ -14,24 +14,12 @@ main:
 		mov 	rdi, [rsi + 8]	; store template in rdi
 		add		rsi, 16			
 		mov 	rdx, rsi		; store pointer to word array in rdx
-
-		; mov		rdi, debug_str
-		; mov		rsi, [rsi + 8]
-		; pop		rdx
-		; call	printf
-
-		; template and wordcount correctly stored
-		; call 	printf
-
-		pop		rsi				
-		;mov		rdi, debug_num
-		;call 	printf
-		
-
+		pop		rsi						
 		call	madlib_by_numbers
 		mov		rsi, rdi
 		mov		rdi, debug_num
-		xor		rax, rax
+		mov 	rsi, rax
+		xor 	rax, rax
 		sub 	rsp, 8
 		call	printf
 		add		rsp, 8

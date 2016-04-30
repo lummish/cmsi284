@@ -3,7 +3,7 @@
 		extern puts
 		extern atoi
 		section .text
-main:
+main:							; ask Dondi about handling string arguments
 		push 	rbx				; necessary convention
 		cmp 	rdi, 2			; ensure proper number of args
 		jne		arg_error
@@ -18,7 +18,7 @@ main:
 		cmp		rdx, 0			; if 4 does not evenly divide into year, return no
 		jne		no_out
 		;sub 	rsp, 8			; align stack (maybe)
-		;mov	rax, [rsp]  ; ask question about aligning stack
+		;mov	rax, [rsp]  	; ask question about aligning stack
 		pop 	rax				; instead of just peaking at stack for now
 		push	rax				; store rax back in the stack
 		mov		rcx, 100		; to check divisible by 100

@@ -39,6 +39,39 @@ add_nickels:
 		push	rdx 			; want to store remaining value after removing coin
 		xor 	rax, rax		; reset rax for next label
 		jmp		output
+negative_error:
+		mov 	rdi, negative_amt_format
+		call 	puts
+		jmp 	end
+
+incorrect_args_error:
+		mov 	rdi, incorrect_args_format
+		call 	puts
+		jmp 	end
+
+output:
+		mov 	rdi, penny_format  ; to print pennies first
+		pop 	rsi					 ; pop remaining value (i.e. amount of pennies)
+		xor 	rax, rax
+		call 	printf
+
+		mov 	rdi, nickel_format ; to print pennies first
+		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
+		xor 	rax, rax
+		call 	printf
+
+		mov 	rdi, dime_format 	 ; to print pennies first
+		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
+		xor 	rax, rax
+		call 	printf
+
+		mov 	rdi, quarter_format ; to print pennies first
+		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
+		xor 	rax, rax
+		call 	printf		
+end:
+		pop 	rbx 					;necessary convention
+		ret
 
 q:		
 		dq 	25
@@ -75,38 +108,4 @@ negative_amt_format:
 
 incorrect_args_format:
 		db "Incorrect number of arguments.", 10, 0
-
-negative_error:
-		mov 	rdi, negative_amt_format
-		call 	puts
-		jmp 	end
-
-incorrect_args_error:
-		mov 	rdi, incorrect_args_format
-		call 	puts
-		jmp 	end
-
-output:
-		mov 	rdi, penny_format  ; to print pennies first
-		pop 	rsi					 ; pop remaining value (i.e. amount of pennies)
-		xor 	rax, rax
-		call 	printf
-
-		mov 	rdi, nickel_format ; to print pennies first
-		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
-		xor 	rax, rax
-		call 	printf
-
-		mov 	rdi, dime_format 	 ; to print pennies first
-		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
-		xor 	rax, rax
-		call 	printf
-
-		mov 	rdi, quarter_format ; to print pennies first
-		pop 	rsi					 ; pop remaining value (i.e. amount of nickels)
-		xor 	rax, rax
-		call 	printf		
-end:
-		pop 	rbx 					;necessary convention
-		ret
 

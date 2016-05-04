@@ -17,8 +17,6 @@ main:							; ask Dondi about handling string arguments
 		div  	rcx
 		cmp		rdx, 0			; if 4 does not evenly divide into year, return no
 		jne		no_out
-		;sub 	rsp, 8			; align stack (maybe)
-		;mov	rax, [rsp]  	; ask question about aligning stack
 		pop 	rax				; instead of just peaking at stack for now
 		push	rax				; store rax back in the stack
 		mov		rcx, 100		; to check divisible by 100
@@ -35,8 +33,6 @@ main:							; ask Dondi about handling string arguments
 arg_error:
 		mov 	rdi, arg_out
 		jmp 	end
-arg_out:
-		db 	"Improper argument format.", 10, 0
 yes_out:
 		mov 	rdi, yes_string
 		pop 	rsi
@@ -44,12 +40,14 @@ yes_out:
 no_out:
 		mov 	rdi, no_string
 		pop 	rsi
-		jmp 	end
-yes_string:
-	db 	"The year %d is a leap year", 10, 0
-no_string:
-	db 	"The year %d is not a leap year", 10, 0
 end:	
 		call 	printf
 		pop 	rbx
 		ret
+arg_out:
+		db 	"Improper argument format.", 10, 0
+yes_string:
+	db 	"The year %d is a leap year", 10, 0
+no_string:
+	db 	"The year %d is not a leap year", 10, 0
+

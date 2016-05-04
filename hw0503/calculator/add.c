@@ -9,10 +9,11 @@ int main(int argc, char* argv[]) {
 		return 0;
 	}
 	else {
-		int x = atoi(argv[1]); //may need to change argument numbers
+		int x = atoi(argv[1]); 
 		int y = atoi(argv[2]);
 		int sum = add(x, y);
 		printf("%d\n", sum); 
+		return sum;
 	}
 
 	return 0;
